@@ -8,13 +8,14 @@
 
 #define BIRD '0'
 #define BUFFER '*'
-#define GRAVITY 1
+#define GRAVITY -1
 #define FLAP_VELOCITY 3
 #define BIRD_START_X 10
 #define BUFFER_NUM 5
 #define BUFFER_WIDTH 6
 #define BUFFER_GAP_HEIGHT 6
 #define BUFFER_SPACING 20
+#define GAME_SPEED_MS 100 // game loop delay in milliseconds (100ms = 10FPS)
 
 typedef struct {
     int center_x;
@@ -25,7 +26,7 @@ typedef struct {
 int width, height;
 
 void init_ncurses();
-void reset_buffers(Buffer* buffer, int center_x);
+void reset_buffer(Buffer* buffer, int center_x);
 void draw_bird(int y, int x);
 void draw_buffers(Buffer buffers[]);
 void draw_score(int score);
@@ -48,7 +49,7 @@ int main() {
         Buffer buffers[BUFFER_NUM];
         for (int i = 0; i < BUFFER_NUM; i++) {
             // Start buffers off-screen to the right
-            reset_buffer(&buffers[i], width + i * BUFFER_SPACING);
+            reset_buffer(&buffers[i], width + i * BUFFER_SPACING + BUFFER_WIDTH / 2);
         }
 
         while (!game_over) {
@@ -67,8 +68,8 @@ int main() {
 
             for (int i = 0; i < BUFFER_NUM; i++) {
                 buffers[i].center_x--;
-                if (buffers[i].center_x < - BUFFER_WIDTH) {
-                    int last_buffer_index = (i + BUFFER_NUMER - 1) % BUFFER_NUM;
+                if (buffers[i].center_x < - BUFFER_WIDTH / 2) {
+                    int last_buffer_index = (i + BUFFER_NUM - 1) % BUFFER_NUM;
                     int new_x = buffers[last_buffer_index].center_x + BUFFER_SPACING;
                     reset_buffer(&buffers[i], new_x);
                 }
@@ -83,10 +84,10 @@ int main() {
             // buffer collision
             for (int i = 0; i < BUFFER_NUM; i++) {
                 Buffer b = buffers[i];
-                if (BIRD_START_X >= b.center_x - BUFFER_WIDTH / 2 && BIRD_START_X < b.center_x + BUFFER_WIDTH / 2) {
+                if (BIRD_START_X >= b.center_x - BUFFER_WIDTH / 2 && BIRD_START_X <= b.center_x + BUFFER_WIDTH / 2) {
                     int gap_bottom = b.center_y - BUFFER_GAP_HEIGHT / 2;
                     int gap_top = b.center_y + BUFFER_GAP_HEIGHT / 2;
-                    if (bird_y < gap_bottom || bird_y > gap_top) {
+                    if (bird_y <= gap_bottom || bird_y >= gap_top) {
                         game_over = TRUE;
                         break;
                     }
