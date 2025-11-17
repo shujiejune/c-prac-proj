@@ -19,3 +19,8 @@ a.out
 !*.h
 !*.md
 !.gitignore
+
+!/*/*.c
+!/*/*.h
+!/*/*.md
+!/*/.gitignore
