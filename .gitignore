@@ -1,0 +1,16 @@
+*.out
+*.o
+*.a
+*.so
+*.exe
+*.dll
+
+/*/*.out
+/*/*.o
+/*/*.a
+/*/*.so
+/*/*.exe
+/*/*.dll
+
+*/a.out
+a.out
