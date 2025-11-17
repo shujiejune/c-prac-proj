@@ -15,12 +15,8 @@
 */a.out
 a.out
 
-!*.c
-!*.h
-!*.md
-!.gitignore
-
-!/*/*.c
-!/*/*.h
-!/*/*.md
-!/*/.gitignore
+**/[!.]*     # ignore extensionless files
+!**/*.c      # keep .c files
+!**/*.h      # keep .h files
+!**/*.md     # keep markdown
+!.gitignore  # keep this file
