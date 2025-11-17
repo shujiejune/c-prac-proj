@@ -14,3 +14,8 @@
 
 */a.out
 a.out
+
+!*.c
+!*.h
+!*.md
+!.gitignore
