@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int is_integer(double n) {
+    return n - (long long) n == 0;
+}
+
 int main() {
     double a, b;
     char opr;
@@ -33,7 +37,17 @@ int main() {
             res = a / b;
             break;
         case '%':
-            res = 0;
+            if (!is_integer(a) || !is_integer(b)) {
+                fprintf(stderr, "Error: undefined. Remainder operator requires both operands to be integers.\n");
+                return EXIT_FAILURE;
+            }
+            long long int_a = (long long) a;
+            long long int_b = (long long) b;
+            if (int_b == 0) {
+                fprintf(stderr, "Error: undefined. Cannot perform remainder on zero.\n");
+                return EXIT_FAILURE;
+            }
+            res = (double) (int_a % int_b);
             break;
         default:
             fprintf(stderr, "Error: malformed input. Invalid operator.\n");
