@@ -1,22 +1,6 @@
-*.out
-*.o
-*.a
-*.so
-*.exe
-*.dll
-
-/*/*.out
-/*/*.o
-/*/*.a
-/*/*.so
-/*/*.exe
-/*/*.dll
-
-*/a.out
-a.out
-
-**/[!.]*     # ignore extensionless files
-!**/*.c      # keep .c files
-!**/*.h      # keep .h files
-!**/*.md     # keep markdown
-!.gitignore  # keep this file
+# Keep source files
+!**/*.c
+!**/*.h
+!**/Makefile
+!**/readme*
+!*.gitignore

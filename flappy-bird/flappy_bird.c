@@ -8,13 +8,13 @@
 
 #define BIRD '0'
 #define BUFFER '*'
-#define GRAVITY -1
+#define GRAVITY 0
 #define FLAP_VELOCITY 3
 #define BIRD_START_X 10
 #define BUFFER_NUM 5
 #define BUFFER_WIDTH 6
 #define BUFFER_GAP_HEIGHT 6
-#define BUFFER_SPACING 20
+#define BUFFER_SPACING 30
 #define GAME_SPEED_MS 100 // game loop delay in milliseconds (100ms = 10FPS)
 
 typedef struct {
@@ -71,6 +71,15 @@ int main() {
                 if (buffers[i].center_x < - BUFFER_WIDTH / 2) {
                     int last_buffer_index = (i + BUFFER_NUM - 1) % BUFFER_NUM;
                     int new_x = buffers[last_buffer_index].center_x + BUFFER_SPACING;
+                    /*
+                    int max_buffer_x = 0;
+                    for (int j = 0; j < BUFFER_NUM; j++) {
+                        if (buffers[j].center_x > max_buffer_x) {
+                            max_buffer_x = buffers[j].center_x;
+                        }
+                    }
+                    int new_x = max_buffer_x + BUFFER_SPACING;
+                    */
                     reset_buffer(&buffers[i], new_x);
                 }
             }
