@@ -206,3 +206,65 @@ Node* search_list(List* list, int target) {
     }
     return NULL;
 }
+
+// --- Main Function (Demonstration) ---
+
+int main() {
+    List* my_list = init_list();
+
+    printf("--- Doubly Linked List Demonstration ---\n");
+
+    // 1. Insertion (At End)
+    Node* n1 = insert_at_end(my_list, 10);
+    Node* n2 = insert_at_end(my_list, 20);
+    Node* n3 = insert_at_end(my_list, 30);
+    printf("1. List initialized with 10, 20, 30 (Size: %d)\n", my_list->size);
+    traverse_and_execute(my_list, print_node);
+    printf("\n");
+
+    // 2. Insertion After
+    Node* n_after = search_list(my_list, 20);
+    Node* n_40 = insert_after(my_list, n_after, 40);
+    printf("2. Inserted 40 after 20 (Size: %d)\n", my_list->size);
+    traverse_and_execute(my_list, print_node);
+    printf("\n");
+
+    // 3. Insertion Before
+    Node* n_before = search_list(my_list, 10);
+    Node* n_5 = insert_before(my_list, n_before, 5);
+    printf("3. Inserted 5 before 10 (Size: %d)\n", my_list->size);
+    traverse_and_execute(my_list, print_node);
+    printf("\n");
+
+    // 4. Deletion (Middle node: 40)
+    printf("4. Deleting node 40... ");
+    if (delete_node(my_list, n_40)) {
+        printf("Success!\n");
+    }
+    traverse_and_execute(my_list, print_node);
+    printf("\n");
+
+    // 5. Deletion (Head node: 5)
+    printf("5. Deleting Head node 5... ");
+    if (delete_node(my_list, n_5)) {
+        printf("Success!\n");
+    }
+    traverse_and_execute(my_list, print_node);
+    printf("\n");
+
+    // 6. Deletion (Tail node: 30)
+    printf("6. Deleting Tail node 30... ");
+    Node* n_30 = search_list(my_list, 30);
+    if (delete_node(my_list, n_30)) {
+        printf("Success!\n");
+    }
+    traverse_and_execute(my_list, print_node);
+    printf("\n");
+
+    printf("Final List size: %d\n", my_list->size);
+
+    // Clean up all remaining memory
+    destroy_list(my_list);
+
+    return EXIT_SUCCESS;
+}
